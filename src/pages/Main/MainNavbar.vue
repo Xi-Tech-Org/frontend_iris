@@ -59,7 +59,8 @@ export default {
   computed: {
     routeName() {
       const { name } = this.$route;
-      return this.capitalizeFirstLetter(name);
+      const str = this.$xiPage.getLabelByRouteName(name);
+      return this.capitalizeFirstLetter(str);
     },
     isRTL() {
       return this.$rtl.isRTL;

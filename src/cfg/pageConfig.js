@@ -207,10 +207,33 @@ function getSidebarItems() {
   return rt;
 }
 
+function getLabelByRouteName(str) {
+  let sidebarInfo = {};
+  const cats = getSidebarItems();
+  cfg.forEach((cat) => {
+    if (cat.category.routerInfo.name == str) {
+      sidebarInfo = cat.category.sidebarInfo;
+    } else {
+      cat.items.forEach((item) => {
+        if (item.routerInfo.name == str) {
+          sidebarInfo = item.sidebarInfo;
+        }
+      });
+    }
+  });
+
+  let rt = '';
+  if (sidebarInfo.link) {
+    rt = sidebarInfo.link.name_t ? tt(sidebarInfo.link.name_t) : sidebarInfo.link.name;
+  }
+  return rt;
+}
+
 function install(Vue, options) {
   Vue.prototype.$xiPage = {
     cfg,
     getSidebarItems,
+    getLabelByRouteName,
   };
 }
 
@@ -218,6 +241,7 @@ export default {
   getRouterItemsArray,
   getRouterItems,
   getSidebarItems,
+  getLabelByRouteName,
   install,
   cfg: cfg,
 };
