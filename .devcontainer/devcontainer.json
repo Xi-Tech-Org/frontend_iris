@@ -1,0 +1,22 @@
+{
+  "name": "Frontend IRIS Development",
+  "dockerFile": "Dockerfile",
+  "appPort": [3000, 5173, 8080],
+  "forwardPorts": [3000, 5173, 8080],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "amazonwebservices.aws-toolkit-vscode"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  }
+}

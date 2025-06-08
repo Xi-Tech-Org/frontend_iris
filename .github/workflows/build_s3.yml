@@ -1,0 +1,61 @@
+name: Iris Build Dist
+
+on:
+  # 自動觸發 - 當推送到指定分支時
+  push:
+    # branches: [ main, master, dev ]
+    # 暫時只有 dev 自動推編譯
+    branches: [ dev ]
+  
+  # 手動觸發 - 允許手動選擇環境和版本
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署環境'
+        required: true
+        default: 'iris_stg'
+        type: choice
+        options:
+          - iris_dev
+          - iris_stg
+          - iris_prod
+      version:
+        description: '版本號 (例如: 1.2.3)'
+        required: true
+        default: '1.0.0'
+        type: string
+
+jobs:
+  # 自動構建開發環境 (由 push 觸發)
+  build-develop-job:
+    if: github.event_name == 'push'
+    runs-on:
+      - codebuild-IrisFrontEnd_Build-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:arm-3.0
+      - instance-size:large
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run build script
+        env:
+          DeployTo: "iris_dev"
+        run: |
+          chmod +x DeployTo.sh DeployTo-env.sh
+          ./DeployTo.sh
+  
+  # 手動部署到指定環境 (由 workflow_dispatch 觸發)
+  manual-deploy-job:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on:
+      - codebuild-IrisFrontEnd_Build-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:arm-3.0
+      - instance-size:large
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run build script with manual inputs
+        env:
+          DeployTo: ${{ github.event.inputs.environment }}
+        run: |
+          chmod +x DeployTo.sh DeployTo-env.sh
+          ./DeployTo.sh ${{ github.event.inputs.environment }} ${{ github.event.inputs.version }}
