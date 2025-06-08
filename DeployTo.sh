@@ -99,7 +99,7 @@ ContainerName=frontend-iris
 DeployToEnv=$ENV
 docker stop ${ContainerName}
 docker rm ${ContainerName}
-docker run -w /app --oom-kill-disable --name ${ContainerName} -v $(pwd):/app public.ecr.aws/docker/library/node:22.16.0  "bash" "-c" "npm install && npm run build:$DeployToEnv"
+docker run -w /app --oom-kill-disable --name ${ContainerName} -v $(pwd):/app public.ecr.aws/docker/library/node:22.16.0  "bash" "-c" "npm install && npm run build"
 
 
 [[ ! -f dist/index.html ]] && exit 1
