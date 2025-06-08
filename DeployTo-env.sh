@@ -6,9 +6,9 @@ declare -A region=(
 ["iris_prod"]='ap-southeast-1'
 )
 declare -A bucket=(
-["iris_dev"]='xitech-iris-client'
-["iris_stg"]='xitech-iris-client'
-["iris_prod"]='xitech-iris-client'
+["iris_dev"]='xitech-client'
+["iris_stg"]='xitech-client'
+["iris_prod"]='xitech-client'
 )
 declare -A apiurl=(
 ["iris_dev"]='https://admin-dev.iris.xitech.com'
@@ -17,7 +17,7 @@ declare -A apiurl=(
 )
 
 declare -A cdncache=(
-["iris_dev"]='E3ER3B7RTIRCG8'
-["iris_stg"]='E3ER3B7RTIRCG8'
-["iris_prod"]='E3ER3B7RTIRCG8'
+["iris_dev"]='EMA1AYEPUV9SN'
+["iris_stg"]='EMA1AYEPUV9SN'
+["iris_prod"]='EMA1AYEPUV9SN'
 )
