@@ -14,7 +14,7 @@ function fakeGiveuserData(acc, jwt) {
   return {
     Account: acc,
     Name: acc + ' Man',
-    Jwt: jwt,
+    Token: jwt,
     Permissions: [
       {
         FunctionName: 'SearchByBetID',

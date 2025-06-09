@@ -6,7 +6,7 @@ export function formatResponseUserInfo(UserInfo) {
   return {
     account: UserInfo.Account,
     name: UserInfo.Name,
-    jwt: UserInfo.Jwt,
+    jwt: UserInfo.Token,
     permissions: UserInfo.Permissions.map((c) => {
       return {
         functionName: c.FunctionName,
@@ -80,7 +80,7 @@ export const userInfo = {
       const pwd = objA.password;
       console.log('====DDDD Account:' + acc + ' , ' + 'Password:' + pwd);
       const res = await userApi.login(acc, pwd);
-      if (res && res.UserInfo && res.UserInfo.Jwt) {
+      if (res && res.UserInfo && res.UserInfo.Token) {
         // 登入成功
         const adjUserInfo = formatResponseUserInfo(res.UserInfo);
         context.commit('updateUserInfo', adjUserInfo);
