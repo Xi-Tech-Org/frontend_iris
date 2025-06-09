@@ -26,6 +26,62 @@
       <modal :show.sync="searchModalVisible" class="modal-search" id="searchModal" :centered="false" :show-close="true">
         <input slot="header" v-model="searchQuery" type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" />
       </modal>
+      <!-- Classic Modal Change Password -->
+      <modal :show.sync="flgChangePassword" body-classes="p-0" modal-classes="modal-dialog-centered modal-md" headerClasses="justify-content-center" footerClasses="modal_footer_class">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <card type="secondary" header-classes="pb-5" body-classes="px-lg-5 py-lg-5 modal_secondary_bg" class="border-0 mb-0">
+            <template>
+              <div class="text-muted text-center mb-3">
+                <h4>{{ $t('changePassword') }}</h4>
+              </div>
+            </template>
+            <form @submit.prevent="handleSubmit(submitChangePassword)">
+              <div class="form-row">
+                <ValidationProvider name="password" rules="required|min:1" v-slot="{ passed, failed, errors }">
+                  <base-input
+                    class="col-md-10"
+                    v-model="password.old"
+                    type="password"
+                    :label="$t('oldPassword')"
+                    :placeholder="$t('keyIn1')"
+                    :error="errors[0]"
+                    :class="[{ 'has-success': passed }, { 'has-danger': failed }]"
+                  />
+                </ValidationProvider>
+                <ValidationProvider name="password" rules="required|min:1|confirmed:confirmation" v-slot="{ passed, failed, errors }">
+                  <base-input
+                    class="col-md-10"
+                    v-model="password.pwd"
+                    type="password"
+                    :label="$t('newPassword')"
+                    :placeholder="$t('keyIn1')"
+                    :error="errors[0]"
+                    :class="[{ 'has-success': passed }, { 'has-danger': failed }]"
+                  />
+                </ValidationProvider>
+                <ValidationProvider name="password" vid="confirmation" rules="required|min:1" v-slot="{ passed, failed, errors }">
+                  <base-input
+                    class="col-md-10"
+                    v-model="password.confirm"
+                    type="password"
+                    :label="$t('confirmPassword')"
+                    :placeholder="$t('keyIn1')"
+                    :error="errors[0]"
+                    :class="[{ 'has-success': passed }, { 'has-danger': failed }]"
+                  />
+                </ValidationProvider>
+              </div>
+              <div class="m_footer">
+                <base-button type="primary" native-type="submitChangePassword">{{ $t('reset') }}</base-button>
+                <base-button type="danger" @click.native="flgChangePassword = false">Close </base-button>
+              </div>
+              <div class="m_footer_hint">
+                <div>{{ $t('change_password_hint_1') }}</div>
+              </div>
+            </form>
+          </card>
+        </ValidationObserver>
+      </modal>
       <base-dropdown tag="li" :menu-on-right="!$rtl.isRTL" title-tag="a" class="nav-item" title-classes="nav-link" menu-classes="dropdown-navbar">
         <template slot="title">
           <div class="photo"><img src="img/mike.jpg" /></div>
@@ -38,6 +94,9 @@
         <li class="nav-link">
           <a href="#" class="nav-item dropdown-item">Settings</a>
         </li>
+        <li class="nav-link" @click="menuClick('changePassword')">
+          <a href="#" class="nav-item dropdown-item">{{ $t('changePassword') }}</a>
+        </li>
         <div class="dropdown-divider"></div>
         <li class="nav-link" @click="logout()">
           <span class="nav-item dropdown-item">Log out</span>
@@ -49,6 +108,13 @@
 <script>
 import { BaseNav, Modal } from '@/components';
 import SidebarToggleButton from '../Layout/SidebarToggleButton';
+import { extend } from 'vee-validate';
+import { required, min, confirmed } from 'vee-validate/dist/rules';
+import { userApi } from '../../api/api';
+
+extend('min', min);
+extend('required', required);
+extend('confirmed', confirmed);
 
 export default {
   components: {
@@ -65,13 +131,22 @@ export default {
     isRTL() {
       return this.$rtl.isRTL;
     },
+    userInfo() {
+      return this.$store.getters.userInfo;
+    },
   },
   data() {
     return {
+      flgChangePassword: false,
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,
       searchQuery: '',
+      password: {
+        old: '',
+        pwd: '',
+        confirm: '',
+      },
     };
   },
   methods: {
@@ -96,11 +171,64 @@ export default {
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
+    menuClick(item) {
+      this.$emit('click_menu', item);
+      if (item == 'changePassword') {
+        this.flgChangePassword = true;
+      }
+    },
+    resetPassword() {
+      Object.keys(this.password).forEach((c) => {
+        this.password[c] = '';
+      });
+    },
+    submitChangePassword() {
+      console.log('====DDDD OK Change Password');
+      const uf = this.userInfo;
+      userApi.changePassword(uf.jwt, this.password.old, this.password.pwd).then((e) => {
+        console.log(e);
+        // 如果成功
+        this.resetPassword();
+        this.$store.commit('updatePassword', this.password.pwd);
+        this.flgChangePassword = false;
+      });
+    },
+  },
+  mounted() {
+    const uf = this.userInfo;
+    if (uf.password) {
+      this.password.old = uf.password;
+    }
   },
 };
 </script>
 <style scoped>
 .top-navbar {
   top: 0px;
+}
+
+.title-up {
+  text-transform: capitalize;
+}
+.m_footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 24px 0px 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+.m_footer_hint {
+  padding: 0px 24px 16px 24px;
+  color: var(--danger);
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+}
+.m_footer_hint > div {
+  width: 100%;
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: right;
 }
 </style>

@@ -21,7 +21,7 @@
       </template>
     </side-bar>
     <div class="main-panel" :data="sidebarBackground">
-      <dashboard-navbar></dashboard-navbar>
+      <dashboard-navbar @click_menu="clickNavMenu"></dashboard-navbar>
       <router-view name="header"></router-view>
 
       <div :class="{ content: !$route.meta.hideContent }" @click="toggleSidebar">
@@ -38,6 +38,10 @@
 /* eslint-disable no-new */
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import DashboardNavbar from './MainNavbar.vue';
+import ContentFooter from './MainFooter.vue';
+import SidebarFixedToggleButton from '../Layout/SidebarFixedToggleButton.vue';
+import { ZoomCenterTransition } from 'vue2-transitions';
 
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0;
@@ -53,11 +57,6 @@ function initScrollbar(className) {
     }, 100);
   }
 }
-
-import DashboardNavbar from './MainNavbar.vue';
-import ContentFooter from './MainFooter.vue';
-import SidebarFixedToggleButton from '../Layout/SidebarFixedToggleButton.vue';
-import { ZoomCenterTransition } from 'vue2-transitions';
 
 export default {
   components: {
@@ -85,6 +84,7 @@ export default {
   },
   data() {
     return {
+      flgChangePassword: false,
       sidebarBackground: 'primary', //vue|blue|orange|green|red|primary
       sideRawItems: [],
     };
@@ -108,6 +108,9 @@ export default {
       } else {
         docClasses.add('perfect-scrollbar-off');
       }
+    },
+    clickNavMenu(item) {
+      console.log(item);
     },
   },
   mounted() {

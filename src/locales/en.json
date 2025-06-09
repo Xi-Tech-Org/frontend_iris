@@ -51,6 +51,11 @@
   "currencyList": "Currency List",
   "settings": "settings",
   "changePassword": "Change Password",
+  "oldPassword": "Old Password",
+  "newPassword": "New Password",
+  "confirmPassword": "Confirm Password",
+  "keyIn1": "Key In",
+  "change_password_hint_1": "*Account will be logged out after password is reset.",
   "admin": "admin",
   "roleManagement": "Role Management",
   "userManagement": "User Management",
@@ -60,5 +65,6 @@
   "specificPlayers": "Specific Players",
   "campaigns": "campaigns",
   "promo": "promo",
+  "reset": "reset",
   "mysteryPrizes": "Mystery Prizes"
 }

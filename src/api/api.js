@@ -74,12 +74,55 @@ export const userApi = {
         return false;
       });
   },
+  logout(jwt) {
+    return req
+      .get(
+        'Rail/TRA/Network',
+        {
+          Token: jwt,
+        },
+        {}
+      )
+      .then((e) => {
+        console.log('====DDDD logout then', e);
+        const data = e.data;
+        return data;
+      })
+      .catch((e) => {
+        console.log(e);
+        return false;
+      });
+  },
   verifyJWT(jwt) {
     return req
       .get(
         'Rail/TRA/Network',
         {
           jwt: jwt,
+        },
+        {}
+      )
+      .then((e) => {
+        const j = 'abc134fgdngjodfg.dfhdfhdfhdf.iojse03olj.ghj87ergds.' + Date.now();
+        // return { errCode: 1005 };
+        return {
+          UserInfo: fakeGiveuserData('Hive', j),
+          errCode: 1,
+        };
+      })
+      .catch((e) => {
+        console.log(e);
+        return { errCode: 89005 };
+      });
+  },
+  changePassword(jwt, oldpwd, pwd) {
+    return req
+      .get(
+        'Rail/TRA/Network',
+        {
+          jwt: jwt,
+          oldpwd: oldpwd,
+          pwd: pwd,
         },
         {}
       )

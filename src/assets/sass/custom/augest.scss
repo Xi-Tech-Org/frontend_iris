@@ -1,0 +1,12 @@
+:root {
+  --modal_secondary_footer_bg: #2a2b3c;
+  --modal_secondary_bg: #2c253a;
+}
+
+.modal_footer_class {
+  background-color: var(--modal_secondary_footer_bg);
+}
+
+.modal_secondary_bg {
+  background-color: var(--modal_secondary_bg);
+}

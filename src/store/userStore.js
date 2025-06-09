@@ -24,6 +24,7 @@ export const userInfo = {
   namespaced: false,
   state: {
     account: '',
+    password: '',
     name: '',
     jwt: '',
     permissions: [],
@@ -60,8 +61,8 @@ export const userInfo = {
       });
       LStorage.saveObj(LStorage.constKey.KEY_USERINFO, JSON.parse(JSON.stringify(sObj)));
     },
-    updateAccount(state, acc) {
-      this.commit('updateUserInfo', { account: acc });
+    updatePassword(state, pwd) {
+      this.commit('updateUserInfo', { password: pwd });
     },
     updateJWT(state, jwt) {
       this.commit('updateUserInfo', { jwt: jwt });
@@ -84,13 +85,17 @@ export const userInfo = {
         // 登入成功
         const adjUserInfo = formatResponseUserInfo(res.UserInfo);
         context.commit('updateUserInfo', adjUserInfo);
+        context.commit('updateUserInfo', { password: pwd });
 
         // 導引到所有用戶都有的 dashboard
         this.routerA.push('/dashboard');
       }
     },
     async logout(context) {
-      context.commit('logout');
+      console.log('====DDDD Logout');
+      const res = await userApi.logout(context.getters.userInfo.jwt);
+      if (res) context.commit('logout');
+      console.log(res);
       await new Promise((resolve) => {
         setTimeout(resolve, 140);
       });
