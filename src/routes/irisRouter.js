@@ -64,7 +64,7 @@ const routerA = new Router({
           name: 'search_by_bet',
           components: { default: MainPage },
           meta: {
-            permission: 'SearchByBetID',
+            permission: 'SearchByTransactionId',
           },
         },
         {

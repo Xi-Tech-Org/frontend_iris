@@ -1,4 +1,5 @@
 import axios from 'axios';
+import permissionTemplate from '@/cfg/permissionTemplate.json';
 
 let req = axios.create({
   baseURL: 'https://tdx.transportdata.tw/api/basic/v3/',
@@ -15,40 +16,7 @@ function fakeGiveuserData(acc, jwt) {
     Account: acc,
     Name: acc + ' Man',
     Token: jwt,
-    Permissions: [
-      {
-        FunctionName: 'SearchByBetID',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'SearchByPlayer',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'GameList',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'CurrencyList',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'RoleManagement',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'UserManagement',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'VendorManagement',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-      {
-        FunctionName: 'GameProviderManagement',
-        Permission: { Read: true, Create: true, Update: true },
-      },
-    ],
+    Permissions: permissionTemplate,
   };
 }
 

@@ -9,6 +9,8 @@ const Notifications = () => import(/* webpackChunkName: "components" */ '@/pages
 const Icons = () => import(/* webpackChunkName: "components" */ '@/pages/Components/Icons.vue');
 const Typography = () => import(/* webpackChunkName: "components" */ '@/pages/Components/Typography.vue');
 
+const RoleManagement = () => import(/* webpackChunkName: "components" */ '@/pages/Admin/Role.vue');
+
 const tt = function (key) {
   return i18n.t(key);
 };
@@ -81,7 +83,7 @@ const CATEGORY_SEARCH = {
     },
   },
   items: [
-    makeCategoryItems('bytransactionid', 'ByTransactionID', { permission: 'SearchByBetID' }, Panels, { name_t: 'byTransactionID' }),
+    makeCategoryItems('bytransactionid', 'ByTransactionID', { permission: 'SearchByTransactionId' }, Panels, { name_t: 'byTransactionID' }),
     makeCategoryItems('byplayers', 'ByPlayers', { permission: 'SearchByPlayer' }, Buttons, { name_t: 'byPlayers' }),
   ],
 };
@@ -149,7 +151,7 @@ const CATEGORY_ADMIN = {
     },
   },
   items: [
-    makeCategoryItems('role', 'RoleManagement', { permission: 'RoleManagement' }, Panels, { name_t: 'roleManagement' }),
+    makeCategoryItems('role', 'RoleManagement', { permission: 'RoleManagement' }, RoleManagement, { name_t: 'roleManagement' }),
     makeCategoryItems('user', 'UserManagement', { permission: 'UserManagement' }, Buttons, { name_t: 'userManagement' }),
     makeCategoryItems('vendor', 'VendorManagement', { permission: 'VendorManagement' }, Panels, { name_t: 'vendorManagement' }),
     makeCategoryItems('game-provider', 'GameProviderManagement', { permission: 'GameProviderManagement' }, Buttons, { name_t: 'gameProviderManagement' }),

@@ -10,3 +10,29 @@
 .modal_secondary_bg {
   background-color: var(--modal_secondary_bg);
 }
+
+// Xitech Custom General
+.xi-gap-05 {
+  gap: $spacer * 0.5;
+}
+.xi-gap-1 {
+  gap: $spacer * 1;
+}
+.xi-gap-2 {
+  gap: $spacer * 2;
+}
+.xi-gap-3 {
+  gap: $spacer * 3;
+}
+.xi-gap-4 {
+  gap: $spacer * 4;
+}
+
+.text_cap {
+  text-transform: capitalize;
+}
+
+// Element UI Patch
+.el-table table thead th.el-table__cell {
+  background-color: #2a2a2a;
+}

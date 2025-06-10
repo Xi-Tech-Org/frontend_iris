@@ -1,0 +1,92 @@
+[
+  {
+    "Enum": 1,
+    "FunctionName": "SearchByTransactionId",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 2,
+    "FunctionName": "SearchByPlayer",
+    "Permission": { "Read": true, "Update": true }
+  },
+  {
+    "Enum": 3,
+    "FunctionName": "ReportByGame",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 4,
+    "FunctionName": "ReportByNativeCurrency",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 5,
+    "FunctionName": "ReportByBaseCurrency",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 6,
+    "FunctionName": "ReportByPlayer",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 7,
+    "FunctionName": "ReportByTable",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 8,
+    "FunctionName": "ReportByRound",
+    "Permission": { "Read": true }
+  },
+  {
+    "Enum": 9,
+    "FunctionName": "GameList",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  },
+  {
+    "Enum": 10,
+    "FunctionName": "CurrencyList",
+    "Permission": { "Read": true, "Update": true }
+  },
+  {
+    "Enum": 11,
+    "FunctionName": "ChangePassword",
+    "Permission": { "Read": true, "Update": true }
+  },
+  {
+    "Enum": 12,
+    "FunctionName": "RoleManagement",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  },
+  {
+    "Enum": 13,
+    "FunctionName": "UserManagement",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  },
+  {
+    "Enum": 14,
+    "FunctionName": "VendorManagement",
+    "Permission": { "Read": true, "Update": true }
+  },
+  {
+    "Enum": 15,
+    "FunctionName": "GameProviderManagement",
+    "Permission": { "Read": true, "Update": true }
+  },
+  {
+    "Enum": 16,
+    "FunctionName": "FreeRoundSpecificPlayers",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  },
+  {
+    "Enum": 17,
+    "FunctionName": "FreeRoundCampaigns",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  },
+  {
+    "Enum": 18,
+    "FunctionName": "PromoMysteryPrizes",
+    "Permission": { "Read": true, "Create": true, "Update": true }
+  }
+]

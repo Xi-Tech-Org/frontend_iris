@@ -11,9 +11,9 @@ export function formatResponseUserInfo(UserInfo) {
       return {
         functionName: c.FunctionName,
         permission: {
-          create: c.Permission.Create,
-          update: c.Permission.Update,
-          read: c.Permission.Read,
+          create: !!c.Permission.Create,
+          update: !!c.Permission.Update,
+          read: !!c.Permission.Read,
         },
       };
     }),
