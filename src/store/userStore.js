@@ -1,5 +1,5 @@
 import { userApi } from '../api/api.js';
-import { LStorage } from '../util/tool.js';
+import { LStorage, permissionTool } from '../util/tool.js';
 
 // =========== 整理 UserInfo 工具 ================
 export function formatResponseUserInfo(UserInfo) {
@@ -8,12 +8,13 @@ export function formatResponseUserInfo(UserInfo) {
     name: UserInfo.Name,
     jwt: UserInfo.Token,
     permissions: UserInfo.Permissions.map((c) => {
+      const fnName = permissionTool.getNameByID(c.FunctionId);
       return {
-        functionName: c.FunctionName,
+        functionName: fnName,
         permission: {
-          create: !!c.Permission.Create,
-          update: !!c.Permission.Update,
-          read: !!c.Permission.Read,
+          create: !!c.Create,
+          update: !!c.Update,
+          read: !!c.Read,
         },
       };
     }),

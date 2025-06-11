@@ -1,3 +1,5 @@
+import permissionTemplate from '@/cfg/permissionTemplate.json';
+
 // ============== Local Storage Tool ====================
 const LOCAL_STORAGE_KEY = 'IRIS_DATA';
 const KEY_USERINFO = 'userInfo';
@@ -51,5 +53,30 @@ export const LStorage = {
   getJWT() {
     const r = this.readObj(KEY_USERINFO);
     return r.jwt || '';
+  },
+};
+
+export const permissionTool = {
+  getByID(ID) {
+    let perm = permissionTemplate.find((c) => {
+      return c.FunctionId == ID;
+    });
+    return perm;
+  },
+  getByName(name) {
+    let perm = permissionTemplate.find((c) => {
+      return c.FunctionName == name;
+    });
+    return perm;
+  },
+  getNameByID(ID) {
+    let objA = this.getByID(ID);
+    if (!objA) return '';
+    return objA.FunctionName;
+  },
+  getIDByName(name) {
+    let objA = this.getByName(name);
+    if (!objA) return 0;
+    return objA.FunctionName;
   },
 };

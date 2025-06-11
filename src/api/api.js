@@ -12,11 +12,17 @@ let req = axios.create({
 });
 
 function fakeGiveuserData(acc, jwt) {
+  const permissionJson = permissionTemplate.map((c) => {
+    return {
+      FunctionId: c.FunctionId,
+      ...c.Permission,
+    };
+  });
   return {
     Account: acc,
     Name: acc + ' Man',
     Token: jwt,
-    Permissions: permissionTemplate,
+    Permissions: permissionJson,
   };
 }
 

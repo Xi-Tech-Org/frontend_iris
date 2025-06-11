@@ -1,91 +1,91 @@
 [
   {
-    "Enum": 1,
+    "FunctionId": 1,
     "FunctionName": "SearchByTransactionId",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 2,
+    "FunctionId": 2,
     "FunctionName": "SearchByPlayer",
     "Permission": { "Read": true, "Update": true }
   },
   {
-    "Enum": 3,
+    "FunctionId": 3,
     "FunctionName": "ReportByGame",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 4,
+    "FunctionId": 4,
     "FunctionName": "ReportByNativeCurrency",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 5,
+    "FunctionId": 5,
     "FunctionName": "ReportByBaseCurrency",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 6,
+    "FunctionId": 6,
     "FunctionName": "ReportByPlayer",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 7,
+    "FunctionId": 7,
     "FunctionName": "ReportByTable",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 8,
+    "FunctionId": 8,
     "FunctionName": "ReportByRound",
     "Permission": { "Read": true }
   },
   {
-    "Enum": 9,
+    "FunctionId": 9,
     "FunctionName": "GameList",
     "Permission": { "Read": true, "Create": true, "Update": true }
   },
   {
-    "Enum": 10,
+    "FunctionId": 10,
     "FunctionName": "CurrencyList",
     "Permission": { "Read": true, "Update": true }
   },
   {
-    "Enum": 11,
+    "FunctionId": 11,
     "FunctionName": "ChangePassword",
     "Permission": { "Read": true, "Update": true }
   },
   {
-    "Enum": 12,
+    "FunctionId": 12,
     "FunctionName": "RoleManagement",
     "Permission": { "Read": true, "Create": true, "Update": true }
   },
   {
-    "Enum": 13,
+    "FunctionId": 13,
     "FunctionName": "UserManagement",
     "Permission": { "Read": true, "Create": true, "Update": true }
   },
   {
-    "Enum": 14,
+    "FunctionId": 14,
     "FunctionName": "VendorManagement",
     "Permission": { "Read": true, "Update": true }
   },
   {
-    "Enum": 15,
+    "FunctionId": 15,
     "FunctionName": "GameProviderManagement",
     "Permission": { "Read": true, "Update": true }
   },
   {
-    "Enum": 16,
+    "FunctionId": 16,
     "FunctionName": "FreeRoundSpecificPlayers",
     "Permission": { "Read": true, "Create": true, "Update": true }
   },
   {
-    "Enum": 17,
+    "FunctionId": 17,
     "FunctionName": "FreeRoundCampaigns",
     "Permission": { "Read": true, "Create": true, "Update": true }
   },
   {
-    "Enum": 18,
+    "FunctionId": 18,
     "FunctionName": "PromoMysteryPrizes",
     "Permission": { "Read": true, "Create": true, "Update": true }
   }
