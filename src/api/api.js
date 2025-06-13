@@ -102,24 +102,25 @@ export const userApi = {
         return { errCode: 89005 };
       });
   },
-  changePassword(jwt, oldpwd, pwd) {
+  changePassword(acc, oldpwd, pwd) {
     return req
       .post(
         '/UserChangePassword',
         {
-          jwt: jwt,
-          oldpwd: oldpwd,
-          pwd: pwd,
+          Account: acc,
+          Password: oldpwd,
+          NewPassword: pwd,
         },
         {}
       )
       .then((e) => {
-        const j = 'abc134fgdngjodfg.dfhdfhdfhdf.iojse03olj.ghj87ergds.' + Date.now();
-        // return { errCode: 1005 };
-        return {
-          UserInfo: fakeGiveuserData('Hive', j),
-          errCode: 1,
-        };
+        return e.data;
+        // const j = 'abc134fgdngjodfg.dfhdfhdfhdf.iojse03olj.ghj87ergds.' + Date.now();
+        // // return { errCode: 1005 };
+        // return {
+        //   UserInfo: fakeGiveuserData('Hive', j),
+        //   errCode: 1,
+        // };
       })
       .catch((e) => {
         console.log(e);

@@ -111,6 +111,8 @@ import SidebarToggleButton from '../Layout/SidebarToggleButton';
 import { extend } from 'vee-validate';
 import { required, min, confirmed } from 'vee-validate/dist/rules';
 import { userApi } from '../../api/api';
+import { checkStatusSuccess, errCode2Msg } from '@/util/apiHelper.js';
+import { elUI } from '@/util/uiux.js';
 
 extend('min', min);
 extend('required', required);
@@ -185,12 +187,17 @@ export default {
     submitChangePassword() {
       console.log('====DDDD OK Change Password');
       const uf = this.userInfo;
-      userApi.changePassword(uf.jwt, this.password.old, this.password.pwd).then((e) => {
-        console.log(e);
-        // 如果成功
-        this.resetPassword();
-        this.$store.commit('updatePassword', this.password.pwd);
-        this.flgChangePassword = false;
+      userApi.changePassword(uf.account, this.password.old, this.password.pwd).then((res) => {
+        if (checkStatusSuccess(res)) {
+          // 如果成功
+          this.resetPassword();
+          this.$store.commit('updatePassword', this.password.pwd);
+          this.flgChangePassword = false;
+          this.logout();
+        } else {
+          const errMsg = errCode2Msg(res);
+          elUI.message.error(errMsg);
+        }
       });
     },
   },
