@@ -10,6 +10,8 @@ test/unit/coverage
 package-lock.json
 yarn.lock
 
+.en*.local
+
 # Editor directories and files
 .idea
 *.suo

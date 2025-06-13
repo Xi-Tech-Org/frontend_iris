@@ -7,8 +7,13 @@
   "scripts": {
     "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve --open",
     "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode=dev",
+    "build:stg": "vue-cli-service build --mode=stg",
+    "build:prod": "vue-cli-service build --mode=prod",
     "lint": "vue-cli-service lint",
-    "dev": "npm run serve"
+    "dev": "npm run serve --mode=dev",
+    "stg": "npm run serve --mode=stg",
+    "prod": "npm run serve --mode=prod"
   },
   "dependencies": {
     "@fullcalendar/core": "5.11.3",

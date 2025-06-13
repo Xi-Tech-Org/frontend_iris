@@ -30,6 +30,8 @@ Vue.use(DashboardPlugin);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
 
+Vue.prototype.$process_env = process.env;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
