@@ -1,5 +1,7 @@
-import { userApi } from '../api/api.js';
+import { userApi, updateJWT2Header } from '../api/api.js';
 import { LStorage, permissionTool } from '../util/tool.js';
+import { checkStatusSuccess, errCode2Msg } from '@/util/apiHelper.js';
+import { elUI } from '@/util/uiux.js';
 
 // =========== 整理 UserInfo 工具 ================
 export function formatResponseUserInfo(UserInfo) {
@@ -82,31 +84,37 @@ export const userInfo = {
       const pwd = objA.password;
       console.log('====DDDD Account:' + acc + ' , ' + 'Password:' + pwd);
       const res = await userApi.login(acc, pwd);
-      if (res && res.UserInfo && res.UserInfo.Token) {
+      console.log(res);
+      if (res && checkStatusSuccess(res.StatusCode) && res.Data && res.Data.Token) {
         // 登入成功
-        const adjUserInfo = formatResponseUserInfo(res.UserInfo);
+        const adjUserInfo = formatResponseUserInfo(res.Data);
         context.commit('updateUserInfo', adjUserInfo);
         context.commit('updateUserInfo', { password: pwd });
+        updateJWT2Header(res.Data.Token);
 
         // 導引到所有用戶都有的 dashboard
         this.routerA.push('/dashboard');
+      } else {
+        const errMsg = errCode2Msg(res);
+        elUI.message.error(errMsg);
       }
     },
     async logout(context) {
       console.log('====DDDD Logout');
       const res = await userApi.logout(context.getters.userInfo.jwt);
-      if (res) context.commit('logout');
-      console.log(res);
-      await new Promise((resolve) => {
-        setTimeout(resolve, 140);
-      });
-      this.routerA.push('/login');
+      if (res && checkStatusSuccess(res.StatusCode)) {
+        context.commit('logout');
+        this.routerA.push('/login');
+      } else {
+        const errMsg = errCode2Msg(res);
+        elUI.message.error(errMsg);
+      }
     },
     async loginByJWT(context, jwt) {
       console.log('====DDDD Login By JWT :' + jwt);
       const res = await userApi.verifyJWT(jwt);
-      if (res?.UserInfo) {
-        const adjUserInfo = formatResponseUserInfo(res.UserInfo);
+      if (res?.Data) {
+        const adjUserInfo = formatResponseUserInfo(res.Data);
         context.commit('updateUserInfo', adjUserInfo);
         // JWT 交換成功則導引到所有用戶都有的 dashboard
         // this.routerA.push('/dashboard');

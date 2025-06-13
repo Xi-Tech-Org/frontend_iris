@@ -1,15 +1,34 @@
 import axios from 'axios';
 import permissionTemplate from '@/cfg/permissionTemplate.json';
 
-let req = axios.create({
-  baseURL: 'https://tdx.transportdata.tw/api/basic/v3/',
-  timeout: 60000,
-  withCredentials: false,
-  headers: {
-    Authorization: 'none',
-    'Content-Type': 'application/json',
-  },
-});
+const env = process.env;
+const DEFINE_DOMAIN = env.VUE_APP_API;
+const DEFINE_STAGE = env.VUE_APP_STAGES;
+const BASE_URL = `https://${DEFINE_DOMAIN}/${DEFINE_STAGE}`;
+
+function makeRequest(opt = {}) {
+  let headers = Object.assign(
+    {
+      Authorization: 'none',
+      'Content-Type': 'application/json',
+    },
+    opt
+  );
+  return axios.create({
+    baseURL: BASE_URL,
+    timeout: 60000,
+    withCredentials: false,
+    headers: headers,
+  });
+}
+
+let req = makeRequest();
+
+export function updateJWT2Header(jwt) {
+  req = makeRequest({
+    Authorization: 'Bearer ' + jwt,
+  });
+}
 
 function fakeGiveuserData(acc, jwt) {
   const permissionJson = permissionTemplate.map((c) => {
@@ -29,18 +48,18 @@ function fakeGiveuserData(acc, jwt) {
 export const userApi = {
   login(acc, pwd) {
     return req
-      .get(
-        'Rail/TRA/Network',
+      .post(
+        '/UserLogin',
         {
-          account: acc,
-          password: pwd,
+          Account: acc,
+          Password: pwd,
         },
         {}
       )
       .then((e) => {
         console.log('====DDDD login then', e);
         const data = e.data;
-        data.UserInfo = fakeGiveuserData(acc, 'abc1234jwtnlasiofdso8sijsdoigfsirjoajf8.sgfuhsdg8f.sfgdsf09gsd09');
+        // data.Data.Permissions = fakeGiveuserData(acc, 'abc1234jwtnlasiofdso8sijsdoigfsirjoajf8.sgfuhsdg8f.sfgdsf09gsd09').Permissions;
         return data;
       })
       .catch((e) => {
@@ -48,15 +67,9 @@ export const userApi = {
         return false;
       });
   },
-  logout(jwt) {
+  logout() {
     return req
-      .get(
-        'Rail/TRA/Network',
-        {
-          Token: jwt,
-        },
-        {}
-      )
+      .post('/UserLogout', {}, {})
       .then((e) => {
         console.log('====DDDD logout then', e);
         const data = e.data;
@@ -69,10 +82,10 @@ export const userApi = {
   },
   verifyJWT(jwt) {
     return req
-      .get(
-        'Rail/TRA/Network',
+      .post(
+        '/UserLogin',
         {
-          jwt: jwt,
+          Token: jwt,
         },
         {}
       )
@@ -91,8 +104,8 @@ export const userApi = {
   },
   changePassword(jwt, oldpwd, pwd) {
     return req
-      .get(
-        'Rail/TRA/Network',
+      .post(
+        '/UserChangePassword',
         {
           jwt: jwt,
           oldpwd: oldpwd,

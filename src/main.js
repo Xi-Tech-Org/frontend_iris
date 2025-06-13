@@ -24,11 +24,13 @@ import store from './store/store.js';
 // import router from "./routes/router";
 import router from './routes/irisRouter';
 import i18n from './i18n';
+import UIUX from './util/uiux.js';
 import './registerServiceWorker';
 // plugin setup
 Vue.use(DashboardPlugin);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
+Vue.use(UIUX);
 
 Vue.prototype.$process_env = process.env;
 

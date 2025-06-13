@@ -38,6 +38,8 @@
     "charts": "Charts",
     "calendar": "Calendar"
   },
+  "fail": "fail",
+  "fail_cap": "Fail",
   "ID": "ID",
   "search": "search",
   "byTransactionID": "By Transaction ID",
@@ -75,5 +77,6 @@
   "campaigns": "campaigns",
   "promo": "promo",
   "reset": "reset",
+  "errcode_10018": "Sorry, this user account was not found.",
   "mysteryPrizes": "Mystery Prizes"
 }
